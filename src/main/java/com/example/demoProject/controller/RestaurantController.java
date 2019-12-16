@@ -28,12 +28,19 @@ public class RestaurantController {
 	public void addCustomer(@RequestBody Customer customer) {
 		service.addCustomer(customer);
 	}
+	
+	@RequestMapping(value="/addItem" , method = RequestMethod.POST)
+	public void addItem(@RequestBody ItemDto item) {
+		service.addItem(item);
+	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/getAllCustomer" , method = RequestMethod.GET)
 	public List<Customer> getAllCustomer() {
 		
 		return service.getAllCustomer();
 	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/getAllItems" , method = RequestMethod.GET)
 	public List<ItemDto> getAllItems() {
@@ -41,10 +48,6 @@ public class RestaurantController {
 		return service.getAllItems();
 	}
 	
-	@RequestMapping(value="/addItem" , method = RequestMethod.POST)
-	public void addItem(@RequestBody ItemDto item) {
-		service.addItem(item);
-	}
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/postOrder" , method = RequestMethod.POST)
 	public void postOrder(@RequestBody Order order) {
@@ -54,22 +57,17 @@ public class RestaurantController {
 			service.postOrder(item);
 		}
 		for(Integer i:order.getDeletedOrderItemIds()){
-			//service.deleteOrder(i);
 			service.deleteOrderItem(i);
 		}
-		
-			
 	}
-	@RequestMapping(value="/postOrderItem" , method = RequestMethod.POST)
-	public void postOrderItem(@RequestBody OrderItem order) {
-		service.postOrder(order);	
-	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/getOrders" , method = RequestMethod.GET)
 	public List<Order> getOrders() {
 		
 		return service.getOrders();
 	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/getOrderById/{orderId}" , method = RequestMethod.GET)
 	public OrderDetailsDto getOrderById(@PathVariable ("orderId") int orderId) {
@@ -82,11 +80,7 @@ public class RestaurantController {
 		orderItem.setOrderItemList(service.getOrderItemsByOrderId(orderId));
 		return orderItem;
 	}
-	@RequestMapping(value="/getOrderItems" , method = RequestMethod.GET)
-	public List<OrderItem> getOrderItemsByOrderId() {
-		
-		return service.getOrderItemsByOrderId();
-	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/deleteOrder/{orderId}" , method = RequestMethod.DELETE)
 	public void deleteOrderByOrderId(@PathVariable ("orderId") int orderId) {

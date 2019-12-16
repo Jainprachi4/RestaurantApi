@@ -65,13 +65,11 @@ public class RestaurantService {
 
 	public Order postOrder(Order order) {
 		 
-		
-		 return orderRepo.save(order);
+		return orderRepo.save(order);
 	}
+	
 	public void postOrder(OrderItem order) {
-		 
-		
-		 orderItemRepo.save(order);
+		  orderItemRepo.save(order);
 	}
 
 	public List<Order> getOrders() {
@@ -86,7 +84,6 @@ public class RestaurantService {
 				}
 			}
 			orderItemRepo.findByOrderId(order.getOrderId()).forEach(orderItemList::add);
-			//order.setOrderItem(orderItemList);
 		}
 		return orderList;
 		
@@ -99,13 +96,7 @@ public class RestaurantService {
 		return customers;
 	}
 
-	public List<OrderItem> getOrderItemsByOrderId() {
-		 
-		List<OrderItem> orderList= new ArrayList<OrderItem>();
-		orderItemRepo.findAll().forEach(orderList::add);
-		//orderItemRepo.findByOrderId(orderId).forEach(orderList::add);
-		return orderList;
-	}
+	
 	public Set<OrderItem> getOrderItemsByOrderId(int orderId) {
 		 List<ItemDto> items = new ArrayList<ItemDto>();
 		Set<OrderItem> orderList= new HashSet<OrderItem>();
@@ -123,15 +114,14 @@ public class RestaurantService {
 	}
 
 	public void deleteOrder(Integer i) {
-		// TODO Auto-generated method stub
 		orderRepo.deleteById(i);
 	}
+	
 	public void deleteOrderItem(Integer i) {
-		// TODO Auto-generated method stub
 		orderItemRepo.deleteById(i);
 	}
+	
 	public void deleteOrderItemByOrderId(Integer i) {
-		// TODO Auto-generated method stub
 		orderItemRepo.deleteByOrderId(i);
 	}
 }
